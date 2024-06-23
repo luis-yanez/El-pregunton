@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EL PREGUNTÓN</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin: 10px 5px;
+            width: calc(100% - 20px);
+            box-sizing: border-box;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .question-section, .response-section, .view-section {
+            margin-top: 20px;
+        }
+
+        #question {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        .responses {
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .response-item {
+            background-color: #f8f8f8;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .response-item p {
+            margin: 0;
+        }
+
+        .response-item strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>EL PREGUNTÓN</h1>
+        <div class="question-section">
+            <button onclick="askRandomQuestion()">Hazme una Pregunta</button>
+            <p id="question"></p>
+        </div>
+        <div class="response-section">
+            <textarea id="response" rows="4" placeholder="Escribe tu respuesta aquí..."></textarea>
+            <button onclick="saveResponse()">Guardar Respuesta</button>
+            <button onclick="viewResponses()">Ver Respuestas</button>
+        </div>
+        <div class="view-section">
+            <div class="responses" id="responses"></div>
+        </div>
+    </div>
+    <script>
+        const questions = [
+            "What did you do last weekend?",
+            "How would you describe your dream vacation?",
+            "Can you tell me about a hobby you enjoy?",
+            "What types of fruits do you like to eat?",
+            "Did you go to a cultural festival? Why?",
+            "What would you like to eat tonight?",
+            "When do you usually finish your homework?",    
+            "How often do you drink water?",  
+            "What movies do you watch frequently?",     
+            "What books would you recommend for a good read?",   
+            "How many family members do you have?",  
+            "What meals do you often prepare at home?",  
+            "Where did you go last summer? Good",
+            "What beverages do you prefer during breakfast?",  
+            "What activities did you do last weekend?",   
+            "What will you do after graduation?",  
+            "Are you going to attend the party next weekend? Why?",   
+            "Where will you travel during the holidays?",   
+            "What are you going to study in college?",  
+            "What will you buy next Saturday?",  
+            "Are you going to start a new hobby? Why?",
+            "Will you learn a new language? Why?",   
+            "What are you going to do this summer?", 
+            "What will you do after your studies?"
+        ];
+
+        let responses = [];
+
+        function askRandomQuestion() {
+            const randomIndex = Math.floor(Math.random() * questions.length);
+            const question = questions[randomIndex];
+            document.getElementById('question').textContent = question;
+            document.getElementById('response').value = '';
+        }
+
+        function saveResponse() {
+            const question = document.getElementById('question').textContent;
+            const response = document.getElementById('response').value;
+            if (question && response) {
+                responses.push({ question, response });
+                alert('Respuesta guardada!');
+                askRandomQuestion();
+            } else {
+                alert('Por favor, asegúrate de que hay una pregunta y una respuesta.');
+            }
+        }
+
+        function viewResponses() {
+            const responsesDiv = document.getElementById('responses');
+            responsesDiv.innerHTML = '';
+            responses.forEach((item, index) => {
+                const responseItem = document.createElement('div');
+                responseItem.className = 'response-item';
+                responseItem.innerHTML = `<strong>Pregunta ${index + 1}:</strong><p>${item.question}</p><strong>Respuesta:</strong><p>${item.response}</p>`;
+                responsesDiv.appendChild(responseItem);
+            });
+        }
+
+        // Initialize with a random question
+        askRandomQuestion();
+    </script>
+</body>
+</html>
